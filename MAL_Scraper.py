@@ -4,6 +4,7 @@ import os
 import requests
 import time
 
+
 def scrape():
     url = 'https://myanimelist.net/topanime.php'
 
@@ -67,11 +68,12 @@ def scrape():
 
             anime_data_row.append(data.find('td', class_='score ac fs14').get_text().strip())
             top100_animes.append(anime_data_row)
-        print(f'scraped page {int(i/50) + 1} from {page_count}')
+        print(f'scraped page {int(i / 50) + 1} from {page_count}')
 
     df = pd.DataFrame(top100_animes, columns=table_header_titles)
 
     csv_path = os.path.dirname(os.path.realpath(__file__))
     df.to_csv(f'{csv_path}/top{page_count * 50}_animes.csv')
+
 
 scrape()
